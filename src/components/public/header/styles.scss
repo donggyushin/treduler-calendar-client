@@ -1,0 +1,19 @@
+.public__header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .left {
+        padding-left: 20px;
+        width: 50%;
+        h1 {
+            font-weight: 200;
+            color: black;
+        }
+    }
+    .right {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 50px;
+    }
+}

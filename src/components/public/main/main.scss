@@ -1,0 +1,14 @@
+.main__container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .sized_box {
+        height: 80px;
+    }
+    .content {
+        width: 80%;
+        letter-spacing: 1.2px;
+        line-height: 37px;
+        font-size: 20px;
+    }
+}

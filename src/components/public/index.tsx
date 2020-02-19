@@ -4,9 +4,9 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Main from './main'
-import SignUp from './signUp'
-import Login from './login'
+import Main from './main/main'
+import SignUp from './signUp/signUp'
+import Login from './login/login'
 
 export default function App() {
     return <Router>
@@ -14,7 +14,7 @@ export default function App() {
             <Route exact path="/sign-up">
                 <SignUp />
             </Route>
-            <Route exact path="/login">
+            <Route exact path="/sign-in">
                 <Login />
             </Route>
             <Route>

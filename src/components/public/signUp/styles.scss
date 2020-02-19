@@ -1,0 +1,47 @@
+.public__sign_up {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .logo__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .logo {
+            font-weight: 200;
+        }
+
+        .content {
+            font-weight: 200;   
+        }
+    }
+
+    .sized_box {
+        height: 40px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 380px;
+        .row {
+            width: 100%;
+            margin-bottom: 7px;
+            input {
+                text-align: end;
+            }
+        }
+        .error_message {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            color: red;
+            font-size: 10px;
+        }
+        .button__container {
+            margin-top: 20px;
+        }
+    }
+}
