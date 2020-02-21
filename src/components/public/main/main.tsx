@@ -6,7 +6,7 @@ const Presenter: React.FC = () => {
     return <div className="main__container">
         <Header />
         <div className="sized_box"></div>
-        <p className="content">
+        <p className="animated bounce content">
             The World Best Simple and Light Calendar Progressive Web Application
         </p>
 

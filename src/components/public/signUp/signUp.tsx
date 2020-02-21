@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../header/header'
 import './styles.scss'
 import { useFormik } from 'formik'
 import { TextField, Button } from '@material-ui/core'
+import axios from 'axios'
+import { END_POINT } from '../../../consts/endpoint'
+import Loading from 'components/global/loading/loading'
+import Dialog from 'components/global/dialog/dialog'
+import { useDispatch } from 'react-redux'
+import { userLogin } from 'actions/user'
+import { Redirect } from 'react-router-dom'
+
+interface IformValue {
+    email: string
+    name: string
+    phone: string
+    password1: string
+}
 
 const validate = (values: any) => {
     const errors: any = {
@@ -49,6 +63,13 @@ const validate = (values: any) => {
 
 const Presenter: React.FC = () => {
 
+    const [loading, setLoading] = useState(false)
+    const [dialog, setDialog] = useState(false)
+    const [redirect, setRedirect] = useState(false)
+
+    const dispatch = useDispatch()
+
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -59,94 +80,147 @@ const Presenter: React.FC = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            requestMakeNewAccount(values)
         },
     });
 
-    return <div className="public__sign_up">
-        <Header />
-        <div className="logo__container">
-            <h1 className="logo">Treduler</h1>
-            <span className="content">sign up</span>
-        </div>
-        <div className="sized_box"></div>
-        <form onSubmit={formik.handleSubmit}>
-            <div className="row">
-                <TextField
-                    id="email"
-                    name="email"
-                    type="email"
-                    label="email"
-                    onChange={formik.handleChange}
-                    fullWidth={true}
-                    value={formik.values.email}
-                />
+    if (redirect) {
+        return <Redirect to={'/'} />
+    } else {
+        return <div className="public__sign_up">
+            <Header />
+            <div className="logo__container">
+                <h1 className="animated rubberBand logo">Treduler</h1>
+                <span className="content">sign up</span>
             </div>
-            <div className="error_message">
-                {formik.errors.email ? formik.errors.email : ""}
-            </div>
-            <div className="row">
-                <TextField
-                    id="name"
-                    name="name"
-                    type="name"
-                    label="name"
-                    onChange={formik.handleChange}
-                    fullWidth={true}
-                    value={formik.values.name}
-                />
-            </div>
-            <div className="error_message">
-                {formik.errors.name ? formik.errors.name : ""}
-            </div>
-            <div className="row">
-                <TextField
-                    id="phone"
-                    name="phone"
-                    type="phone"
-                    label="phone"
-                    onChange={formik.handleChange}
-                    fullWidth={true}
-                    value={formik.values.phone}
-                />
-            </div>
-            <div className="error_message">
-                {formik.errors.phone ? formik.errors.phone : ""}
-            </div>
-            <div className="row">
-                <TextField
-                    id="password1"
-                    name="password1"
-                    label="password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    fullWidth={true}
-                    value={formik.values.password1}
-                />
-            </div>
-            <div className="error_message">
-                {formik.errors.password1 ? formik.errors.password1 : ""}
-            </div>
-            <div className="row">
-                <TextField
-                    id="password2"
-                    name="password2"
-                    type="password"
-                    label="double check password"
-                    onChange={formik.handleChange}
-                    fullWidth={true}
-                    value={formik.values.password2}
-                />
-            </div>
-            <div className="error_message">
-                {formik.errors.password2 ? formik.errors.password2 : ""}
-            </div>
-            <div className="button__container">
-                <Button type="submit" color="primary">submit</Button>
-            </div>
+            <div className="sized_box"></div>
+            <form onSubmit={formik.handleSubmit}>
+                <div className="row">
+                    <TextField
+                        id="email"
+                        name="email"
+                        type="email"
+                        label="email"
+                        onChange={formik.handleChange}
+                        fullWidth={true}
+                        value={formik.values.email}
+                    />
+                </div>
+                <div className="error_message">
+                    {formik.errors.email ? formik.errors.email : ""}
+                </div>
+                <div className="row">
+                    <TextField
+                        id="name"
+                        name="name"
+                        type="name"
+                        label="name"
+                        onChange={formik.handleChange}
+                        fullWidth={true}
+                        value={formik.values.name}
+                    />
+                </div>
+                <div className="error_message">
+                    {formik.errors.name ? formik.errors.name : ""}
+                </div>
+                <div className="row">
+                    <TextField
+                        id="phone"
+                        name="phone"
+                        type="phone"
+                        label="phone"
+                        onChange={formik.handleChange}
+                        fullWidth={true}
+                        value={formik.values.phone}
+                    />
+                </div>
+                <div className="error_message">
+                    {formik.errors.phone ? formik.errors.phone : ""}
+                </div>
+                <div className="row">
+                    <TextField
+                        id="password1"
+                        name="password1"
+                        label="password"
+                        type="password"
+                        onChange={formik.handleChange}
+                        fullWidth={true}
+                        value={formik.values.password1}
+                    />
+                </div>
+                <div className="error_message">
+                    {formik.errors.password1 ? formik.errors.password1 : ""}
+                </div>
+                <div className="row">
+                    <TextField
+                        id="password2"
+                        name="password2"
+                        type="password"
+                        label="double check password"
+                        onChange={formik.handleChange}
+                        fullWidth={true}
+                        value={formik.values.password2}
+                    />
+                </div>
+                <div className="error_message">
+                    {formik.errors.password2 ? formik.errors.password2 : ""}
+                </div>
+                <div className="button__container">
+                    <Button type="submit" color="primary">submit</Button>
+                </div>
 
-        </form>
-    </div>
+            </form>
+            {loading && <Loading />}
+            {dialog && <Dialog
+                title={"Warning!"}
+                text={"Already existing account"}
+                callBack={() => {
+                    setDialog(false)
+                }}
+            />}
+        </div>
+    }
+
+
+
+    function requestMakeNewAccount(values: IformValue) {
+        setLoading(true)
+        const { email, name, password1, phone } = values
+        axios.post(`${END_POINT}/user/new-account`, {
+            email,
+            name,
+            password: password1,
+            phone
+        })
+            .then(res => res.data)
+            .then(data => {
+                setLoading(false)
+                setRedirect(true)
+                const { name, email, phone, jwt, profile } = data as {
+                    name: string
+                    email: string
+                    phone: string
+                    jwt: string
+                    profile: string
+                }
+                dispatch(userLogin(
+                    email,
+                    name,
+                    profile,
+                    phone,
+                    jwt
+                ))
+            })
+            .catch(err => {
+                setLoading(false)
+                setDialog(true)
+                console.log('error: ', err)
+            })
+    }
+
+
+
+
 }
 
 function isEmail(asValue: string) {
@@ -163,6 +237,7 @@ function isCelluar(asValue: string) {
     return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
 
 }
+
 
 
 
