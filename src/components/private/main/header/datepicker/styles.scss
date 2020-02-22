@@ -1,0 +1,17 @@
+.datepicker__container {
+    display: flex;
+    align-items: center;
+    .month {
+        font-size: 41px;
+        font-family: 'Simonetta';
+    }
+    #date-picker-dialog {
+        display: none;
+    }
+    #date-picker-dialog-label {
+        display: none;
+    }
+    .MuiInput-underline:before {
+        display: none;
+    }
+}

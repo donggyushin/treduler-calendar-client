@@ -1,1 +1,4 @@
 export const USER_LOGIN = 'USER_LOGIN'
+export const USER_LOGOUT = 'USER_LOGOUT'
+
+export const PUT_SELECTED_DATE = 'PUT_SELECTED_DATE'

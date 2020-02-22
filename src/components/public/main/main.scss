@@ -1,3 +1,5 @@
+@import '~styles.scss';
+
 .main__container {
     display: flex;
     align-items: center;
@@ -10,5 +12,22 @@
         letter-spacing: 1.2px;
         line-height: 37px;
         font-size: 20px;
+    }
+    .sized_box_height {
+        height: 110px;
+    }
+
+    .button__container {
+        button {
+            cursor: pointer;
+            background: $blue;
+            color: white;
+            border:0;
+            padding: 8px;
+            border-radius: 17px;
+            font-size: 20px;
+            font-weight: 600;
+            @include boxShadow;
+        }
     }
 }

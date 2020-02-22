@@ -4,7 +4,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Main from './main'
+import Main from './main/main'
 
 export default function App() {
     return <Router>

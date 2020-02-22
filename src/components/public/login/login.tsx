@@ -14,7 +14,6 @@ import { Redirect } from 'react-router-dom'
 const validate = (values: any) => {
     const errors: any = {
     };
-    console.log('values: ', values)
     if (!values.email) {
         errors.email = 'Required';
     } else if (!isEmail(values.email)) {

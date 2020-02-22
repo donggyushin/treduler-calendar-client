@@ -5,6 +5,8 @@
     .left {
         padding-left: 20px;
         width: 50%;
+        display: flex;
+        justify-content: flex-start;
         h1 {
             font-weight: 200;
             color: black;

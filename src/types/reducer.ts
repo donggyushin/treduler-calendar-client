@@ -22,7 +22,12 @@ export interface ReducerUserType {
     isLoggedIn: boolean
 }
 
+export interface ReducerSelectedDate {
+    date: Date
+}
+
 export interface ReducerStateType {
     user: ReducerUserType
     calendars: ReducerCalendarsType
+    selectedDate: ReducerSelectedDate
 }

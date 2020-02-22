@@ -1,5 +1,16 @@
 import { Dispatch } from "react";
-import { USER_LOGIN } from "./types";
+import { USER_LOGIN, USER_LOGOUT } from "./types";
+
+interface IUserLogoutDispatch {
+    type: string
+}
+
+export const userLogout = () => (dispatch: Dispatch<IUserLogoutDispatch>) => {
+    localStorage.removeItem('treduler')
+    return dispatch({
+        type: USER_LOGOUT
+    })
+}
 
 interface IUserLoginDispatch {
     type: string
