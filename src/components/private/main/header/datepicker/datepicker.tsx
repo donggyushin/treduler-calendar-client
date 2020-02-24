@@ -29,7 +29,7 @@ export default function MaterialUIPickers() {
 
     return (
         <div className="datepicker__container">
-            <div className="month">{selectedDate && selectedDate.getMonth() + 1}</div>
+            <div className="date">{selectedDate && selectedDate.getFullYear()}, {selectedDate && selectedDate.getMonth() + 1}</div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
                 <KeyboardDatePicker
