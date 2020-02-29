@@ -9,12 +9,21 @@ import { END_POINT } from 'consts/endpoint'
 import Loading from 'components/global/loading/loading'
 import Dialog from 'components/global/dialog/dialog'
 import { ICalendar } from 'types/calendar'
+import Calendar from './Calendar/calendar'
+import Input from './Input'
 
 
 const Presenter: React.FC = () => {
 
     const selectedDateReducer = useSelector((state: ReducerStateType) => state.selectedDate)
     const selectedDate = selectedDateReducer.date
+
+    const [input, setInput] = useState({
+        view: false,
+        id: ""
+    })
+
+    const [schedule, setSchedule] = useState("")
 
     const [calendars, setCalendars] = useState<ICalendar[]>([])
     const [dialog, setDialog] = useState({
@@ -31,9 +40,9 @@ const Presenter: React.FC = () => {
         fetchCalendars(fromAndTo)
     }, [selectedDate])
 
-    return <div className="private__main__container">
+    return <div className={"private__main__container"}>
         <Header />
-        <div className="calendar__container">
+        <div className={"calendar__container"}>
             <div className="inner__container">
                 <div className="header">
                     <div className="span_container">
@@ -54,17 +63,49 @@ const Presenter: React.FC = () => {
                     </div>
                 </div>
                 <div className="body">
-                    body
-            </div>
+                    {calendars.map((calendar, i) => {
+                        return <Calendar calendarClicked={calendarClicked} calendar={calendar} key={i} />
+                    })}
+                </div>
             </div>
         </div>
         {loading && <Loading />}
+        {input.view && <Input closeInput={closeInput} handleInput={handleInput} schedule={schedule} enterPressed={enterPressed} />}
         {dialog.show && <Dialog
             title={dialog.title}
             text={dialog.text}
             callBack={dialog.callBack}
         />}
     </div>
+
+    function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+        setSchedule(e.target.value)
+    }
+
+    function closeInput() {
+        setSchedule("")
+        setInput({
+            ...input,
+            view: false
+        })
+    }
+
+    function enterPressed(e: React.KeyboardEvent<HTMLInputElement>) {
+
+        if (e.key === 'Enter') {
+            // Doing something
+
+
+            closeInput()
+        }
+    }
+
+    function calendarClicked(id: string) {
+        setInput({
+            view: true,
+            id
+        })
+    }
 
     function fetchCalendars(fromAndTo: string[]) {
         axios.get(`${END_POINT}/calendar/${fromAndTo[0]}/${fromAndTo[1]}`, {

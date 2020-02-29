@@ -6,6 +6,7 @@ export interface ISchedule extends Document {
 
 export interface ICalendar {
     userId: string
-    date: Date
+    date: string
     schedules: ISchedule[]
+    _id: string
 }

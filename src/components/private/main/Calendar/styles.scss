@@ -1,0 +1,14 @@
+.private__calendar__container {
+    cursor: pointer;
+    &.not_match {
+        background: #f1f2f6;
+    }
+    display: flex;
+    flex-direction: column;
+    .date__day {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 10px;
+        padding-top: 4px;
+    }
+}

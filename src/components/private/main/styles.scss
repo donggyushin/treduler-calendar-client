@@ -1,11 +1,14 @@
 .private__main__container {
+    &.blur {
+        filter: blur(2.5px);
+    }
     .calendar__container {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         .inner__container {
-            width: 97%;
+            width: 1400px;
             .header {
                 display: grid;
                 grid-template-columns: repeat(7,1fr);
